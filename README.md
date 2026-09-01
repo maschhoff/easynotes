@@ -30,7 +30,9 @@ Danach läuft die App auf http://localhost:3500
 Im KI-Assistenten oben rechts: Anbieter wählen, API-Key eintragen (wird lokal gespeichert), Modell optional anpassen, dann Thema eingeben und „Erzeugen". Der Text kann direkt in die Seite eingefügt werden.
 
 ## Docker (Unraid)
-Siehe `Dockerfile`. Datenträger `/app/data` auf einen Host-Pfad mappen (z. B. `/mnt/user/appdata/onenote`), Port 3500 freigeben.
+Installation über Community Apps Unraid oder
+docker pull knex666/easynotes:latest
+
 
 ## Dauerhafter Betrieb (Linux/systemd)
 ```bash
