@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2563eb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="EasyNotes">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>EasyNotes · Markdown-Notizbuch</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%234f46e5'/><text x='16' y='22' font-size='17' font-family='Arial' fill='white' text-anchor='middle'>📓</text></svg>">
+<link rel="stylesheet" href="style.css?v=9">
+</head>
+<body>
+<div id="app">
+
+  <!-- Topbar -->
+  <header id="topbar">
+    <button class="icon-btn" id="btn-menu" title="Menü" aria-label="Menü">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div id="brand">
+      <span class="brand-logo">📓</span>
+      <span id="brand-text" data-i18n="appname">EasyNotes</span>
+    </div>
+    <div id="topbar-actions">
+      <button class="icon-btn" id="btn-search" title="Suchen" aria-label="Suchen" data-mobile-only>
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <select id="sel-lang" title="Sprache">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+      </select>
+      <button class="icon-btn" id="btn-darkmode" title="Darkmode" aria-label="Darkmode">
+        <svg id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <svg id="icon-sun" class="hidden" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-ai" title="KI-Assistent" aria-label="KI-Assistent">
+        <svg viewBox="0 0 24 24"><path d="M12 2l1.7 4.8L18.5 8.5l-4.8 1.7L12 15l-1.7-4.8L5.5 8.5l4.8-1.7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M19 13l.8 2.2L22 16l-2.2.8L19 19l-.8-2.2L16 16l2.2-.8z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-import" title="Import" aria-label="Import">
+        <svg viewBox="0 0 24 24"><path d="M12 3v12M7 9l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17v3h16v-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn" id="btn-settings" title="Einstellungen" aria-label="Einstellungen">
+        <svg viewBox="0 0 24 24"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.08a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.08a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.08a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="layout">
+    <!-- Sidebar -->
+    <aside id="sidebar">
+      <div id="sidebar-head">
+        <button class="btn-primary btn-has-icon" id="btn-new-page">
+          <span>＋</span><span data-i18n="newpage">Seite</span>
+        </button>
+        <button class="btn-secondary btn-has-icon" id="btn-new-folder">
+          <span>📁</span><span data-i18n="newfolder">Ordner</span>
+        </button>
+      </div>
+      <div id="sidebar-shortcuts">
+        <button class="shortcut" id="btn-show-fav"><span class="shortcut-ic">★</span><span data-i18n="favorites">Favoriten</span></button>
+        <button class="shortcut" id="btn-show-pinboard"><span class="shortcut-ic">📌</span><span data-i18n="pinboard">Pinnwand</span></button>
+        <button class="shortcut" id="btn-show-tags"><span class="shortcut-ic">🏷️</span><span data-i18n="tags">Tags</span></button>
+      </div>
+      <div id="search-wrap">
+        <input id="search" placeholder="Suchen…" data-i18n-ph="search" />
+        <button class="icon-btn" id="btn-search-clear" title="Schließen">✕</button>
+      </div>
+      <nav id="tree"></nav>
+    </aside>
+    <div id="sidebar-backdrop" class="hidden"></div>
+
+    <!-- Main -->
+    <main id="main">
+      <!-- Pinnwand / Pinboard (angeheftete Notizen als Übersicht) -->
+      <div id="pinboard" class="hidden">
+        <div class="pinboard-head">
+          <h2 data-i18n="pinboard">Pinnwand</h2>
+          <button class="icon-btn" id="btn-pinboard-close" title="Schließen" aria-label="Schließen">✕</button>
+        </div>
+        <div id="pinboard-grid" class="pin-grid"></div>
+        <div id="pinboard-empty" class="pin-empty hidden" data-i18n="pinboardEmpty">Noch nichts angepinnt. Pinge Notizen an, um sie hier zu sehen.</div>
+      </div>
+
+      <!-- Favoriten-Übersicht -->
+      <div id="favview" class="hidden">
+        <div class="pinboard-head">
+          <h2 data-i18n="favorites">Favoriten</h2>
+          <button class="icon-btn" id="btn-fav-close" title="Schließen" aria-label="Schließen">✕</button>
+        </div>
+        <div id="fav-list" class="pin-grid"></div>
+        <div id="fav-empty" class="pin-empty hidden" data-i18n="favEmpty">Noch keine Favoriten. Füge Notizen über das Stern-Symbol hinzu.</div>
+      </div>
+
+      <!-- Tags-Ansicht -->
+      <div id="tagsview" class="hidden">
+        <div class="pinboard-head">
+          <h2 data-i18n="tags">Tags</h2>
+          <button class="icon-btn" id="btn-tags-close" title="Schließen" aria-label="Schließen">✕</button>
+        </div>
+        <div id="tags-toolbar" class="tags-toolbar">
+          <div id="tag-search-wrap" class="tag-search-wrap">
+            <input id="tags-search" placeholder="Tags durchsuchen…" data-i18n-ph="tagSearch" />
+          </div>
+          <button class="btn-secondary" id="btn-tags-all" data-i18n="allNotes">Alle Notizen</button>
+        </div>
+        <div id="tags-cloud" class="tags-cloud"></div>
+        <div id="tag-notes-wrap" class="hidden">
+          <button class="icon-btn" id="btn-tags-back" title="Zurück" aria-label="Zurück">←</button>
+          <h3 id="tag-notes-title"></h3>
+          <div id="tag-notes" class="pin-grid"></div>
+        </div>
+      </div>
+
+      <!-- Welcome -->
+      <div id="welcome" class="hidden">
+        <div class="welcome-inner">
+          <div class="welcome-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V4a2 2 0 0 0-2-2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h1 data-i18n="welcomeTitle">Willkommen</h1>
+          <p data-i18n="welcomeDesc">Erstelle Notizbücher als Ordner, Notizen als Markdown-Dateien. Der Editor funktioniert wie OneNote – ohne dass du Markdown können musst.</p>
+          <div class="welcome-actions">
+            <button class="btn-primary" id="btn-welcome-page" data-i18n="welcomePage">Erste Seite erstellen</button>
+            <button class="btn-secondary" id="btn-welcome-folder" data-i18n="welcomeFolder">Ordner anlegen</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor -->
+      <div id="editor" class="hidden">
+        <div id="editor-toolbar">
+          <div class="tb-group">
+            <button class="tb-btn" data-cmd="bold" title="Fett" data-t="bold"><svg viewBox="0 0 24 24"><path d="M7 5h6.5a3.5 3.5 0 0 1 0 7H7zm0 7h7.5a3.5 3.5 0 0 1 0 7H7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" data-cmd="italic" title="Kursiv" data-t="italic"><svg viewBox="0 0 24 24"><path d="M10 4h8M6 20h8M14 4l-4 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" data-cmd="strikethrough" title="Durchgestrichen" data-t="strike"><svg viewBox="0 0 24 24"><path d="M6 5h12M6 19h12M4 12h16M8 12a3 3 0 0 1 0-4M13 14a3 3 0 0 0 3 2 3 3 0 0 0 0-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-group">
+            <button class="tb-btn" data-cmd="formatBlock" data-val="h1" title="Überschrift 1" data-t="h1"><b>H1</b></button>
+            <button class="tb-btn" data-cmd="formatBlock" data-val="h2" title="Überschrift 2" data-t="h2"><b>H2</b></button>
+            <button class="tb-btn" data-cmd="formatBlock" data-val="h3" title="Überschrift 3" data-t="h3"><b>H3</b></button>
+            <button class="tb-btn" data-cmd="formatBlock" data-val="p" title="Textabsatz" data-t="para"><b>¶</b></button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-group">
+            <button class="tb-btn" data-cmd="insertUnorderedList" title="Aufzählung" data-t="ul"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M3.5 6h.01M3.5 12h.01M3.5 18h.01" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+            <button class="tb-btn" data-cmd="insertOrderedList" title="Nummerierte Liste" data-t="ol"><svg viewBox="0 0 24 24"><path d="M10 6h11M10 12h11M10 18h11M4 5l1.5-1v5M3.5 11a1.2 1.2 0 1 1 2.4 0c0 1-1.4 1.4-1.4 3h2M4 18.5a1.2 1.2 0 0 1 2-1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" data-cmd="insertCheckbox" title="Todo-Checkbox" data-t="todo"><svg viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" data-cmd="formatBlock" data-val="blockquote" title="Zitat" data-t="quote"><svg viewBox="0 0 24 24"><path d="M4 12c0-4 2-7 5-8l1 2c-2 1-3 3-3 5h3v6H4zM13 12c0-4 2-7 5-8l1 2c-2 1-3 3-3 5h3v6h-6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" data-cmd="formatBlock" data-val="pre" title="Code" data-t="code"><svg viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13 4l-2 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" data-cmd="createLink" title="Link" data-t="link"><svg viewBox="0 0 24 24"><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1.5 1.5M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1.5-1.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="tb-sep"></div>
+          <div class="tb-group">
+            <button class="tb-btn" id="btn-upload-img" title="Bild einfügen" data-t="img"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.5" cy="9" r="1.5" fill="currentColor"/><path d="M21 16l-5-5-9 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" id="btn-upload-file" title="Anlage einfügen" data-t="attach"><svg viewBox="0 0 24 24"><path d="M21 11.5l-8.5 8.5a5.5 5.5 0 0 1-7.8-7.8l8.5-8.5a3.8 3.8 0 0 1 5.4 5.4L10 18a2.2 2.2 0 0 1-3-3l7.5-7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="tb-btn" data-cmd="insertHorizontalRule" title="Trennlinie" data-t="hr"><svg viewBox="0 0 24 24"><path d="M3 12h18M7 8l-1 4 1 4M17 8l1 4-1 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <button class="tb-btn" id="btn-insert-drawing" title="Zeichnung einfügen" data-t="drawings"><svg viewBox="0 0 24 24"><path d="M3 20l3.5-8 4 3 5-7L21 6l-2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="tb-sep"></div>
+          <button class="tb-btn tb-btn-toggle" id="btn-view" title="Editor-Modus umschalten" data-t="view"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="view-label">MD</span></button>
+          <div class="tb-flex"></div>
+          <button class="tb-btn" id="btn-pdf" title="Als PDF speichern" data-t="pdf"><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v5h5M9 13h6M9 16h6M9 10h2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+          <button class="tb-btn tb-btn-save" id="btn-save" title="Speichern" data-t="save"><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5zM8 4v5h7V4M8 20v-6h8v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+          <span id="save-state"></span>
+          <input type="file" id="file-input-img" accept="image/*" hidden multiple>
+          <input type="file" id="file-input-file" hidden multiple>
+        </div>
+
+        <div id="meta-bar">
+          <input id="note-title" placeholder="Titel der Seite" data-i18n-ph="title" />
+          <div id="tag-wrap">
+            <input id="tag-input" placeholder="+ Tag" data-i18n-ph="tag" />
+            <div id="tag-list"></div>
+          </div>
+          <div id="page-actions">
+            <button class="icon-btn" id="btn-template" title="Als Template markieren" data-t="markAsTemplate"><svg viewBox="0 0 24 24"><path d="M4 4h16v6H4zM4 14h8v6H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M16 15h4M18 13v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <button class="icon-btn" id="btn-toggle-fav" title="Zu Favoriten hinzufügen" data-t="favoriteAdd"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+            <button class="icon-btn" id="btn-toggle-pin" title="Auf der Pinnwand anzeigen" data-t="pinToBoard"><svg viewBox="0 0 24 24"><path d="M9 4h6l-1 7 3 3v2H7v-2l3-3zM12 16v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="icon-btn" id="btn-versions" title="Versionen" data-t="versions"><svg viewBox="0 0 24 24"><path d="M4 5v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 11a8 8 0 1 1 2.3 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <button class="icon-btn" id="btn-copy-page" title="Seite duplizieren" data-t="duplicate"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>
+            <button class="icon-btn danger" id="btn-delete-page" title="Seite löschen" data-t="delete"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M6 7l1 13h10l1-13M10 11v6M14 11v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <span id="save-badge" class="hidden"></span>
+        </div>
+
+        <!-- WYSIWYG rendered editor -->
+        <div id="wysiwyg" contenteditable="true" spellcheck="true" data-placeholder></div>
+        <!-- Markdown source -->
+        <textarea id="mdsrc" class="hidden" spellcheck="false"></textarea>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Drop overlay -->
+<div id="drop-overlay" class="hidden"><div class="drop-inner"><div class="drop-icon">📥</div><div data-i18n="dropHere">Datei hier ablegen</div></div></div>
+
+<!-- Move / Copy modal -->
+<div id="move-modal" class="modal hidden">
+  <div class="modal-box">
+    <h3 id="move-title">Verschieben</h3>
+    <p class="muted" id="move-desc"></p>
+    <div id="move-tree" class="folder-picker"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" data-close id="btn-move-cancel" data-i18n="cancel">Abbrechen</button>
+      <button class="btn-primary" id="btn-move-confirm" data-i18n="move">Verschieben</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Panel (right side, collapsible) -->
+<div id="ai-panel" class="hidden">
+  <div class="ai-panel-head">
+    <span data-i18n="ai">KI-Assistent</span>
+    <button class="icon-btn" id="btn-ai-close" title="Schließen">✕</button>
+  </div>
+  <div class="ai-panel-body">
+    <p class="muted" data-i18n="aiKeyHint" style="font-size:12px;margin:0 0 10px;">API-Key wird in den Einstellungen gespeichert.</p>
+    <label>
+      <span class="lbl" data-i18n="aiPrompt">Was soll die Notiz enthalten?</span>
+      <textarea id="ai-prompt" rows="5" placeholder="Thema, Stichpunkte oder Frage…"></textarea>
+    </label>
+    <div class="ai-actions">
+      <button class="btn-primary" id="btn-ai-run" data-i18n="generate">Erzeugen</button>
+      <button class="btn-secondary" id="btn-ai-insert" data-i18n="insertNote">In Seite einfügen</button>
+    </div>
+    <div id="ai-result" class="hidden"></div>
+  </div>
+</div>
+
+<!-- Settings page -->
+<div id="settings-modal" class="modal hidden">
+  <div class="modal-box modal-wide">
+    <h3 data-i18n="settings">Einstellungen</h3>
+    <div class="sett-grid">
+      <label>
+        <span class="lbl" data-i18n="language">Sprache</span>
+        <select id="sett-lang">
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <label>
+        <span class="lbl" data-i18n="theme">Darstellung</span>
+        <select id="sett-theme">
+          <option value="light">Hell</option>
+          <option value="dark">Dunkel</option>
+          <option value="auto">Automatisch</option>
+        </select>
+      </label>
+      <label class="sett-check">
+        <input type="checkbox" id="sett-tags"> <span data-i18n="tagsToggle">Tags anzeigen</span>
+      </label>
+      <label>
+        <span class="lbl" data-i18n="startPage">Startseite</span>
+        <select id="sett-startpage">
+          <option value="pinboard" data-i18n="startPagePinboard">Pinnwand</option>
+          <option value="welcome" data-i18n="startPageWelcome">Willkommensseite</option>
+          <option value="tree" data-i18n="startPageTree">Notizbaum</option>
+        </select>
+      </label>
+      <label>
+        <span class="lbl" data-i18n="versionHistory">MD-Versionen behalten</span>
+        <input type="number" id="sett-versions" min="0" max="99" step="1" />
+        <span class="muted" data-i18n="versionHistoryDesc">Wie viele ältere Versionen einer Seite aufbewahrt werden (0 = deaktiviert).</span>
+      </label>
+    </div>
+    <h4 data-i18n="aiKeys">KI-API-Schlüssel</h4>
+    <div class="sett-grid">
+      <label>
+        <span class="lbl" data-i18n="provider">Anbieter</span>
+        <select id="sett-provider">
+          <option value="deepseek">DeepSeek</option>
+          <option value="claude">Claude (Anthropic)</option>
+          <option value="openai">ChatGPT (OpenAI)</option>
+          <option value="gemini">Gemini (Google)</option>
+        </select>
+      </label>
+      <label>
+        <span class="lbl">DeepSeek</span>
+        <input type="password" id="sett-key-deepseek" placeholder="sk-…" autocomplete="off" />
+      </label>
+      <label>
+        <span class="lbl">Claude (Anthropic)</span>
+        <input type="password" id="sett-key-claude" placeholder="sk-ant-…" autocomplete="off" />
+      </label>
+      <label>
+        <span class="lbl">ChatGPT (OpenAI)</span>
+        <input type="password" id="sett-key-openai" placeholder="sk-…" autocomplete="off" />
+      </label>
+      <label>
+        <span class="lbl">Gemini (Google)</span>
+        <input type="password" id="sett-key-gemini" placeholder="AIza…" autocomplete="off" />
+      </label>
+    </div>
+    <h4 data-i18n="security">Sicherheit</h4>
+    <div class="sett-grid">
+      <label>
+        <span class="lbl" data-i18n="pin">PIN-Sperre</span>
+        <input type="password" id="sett-pin" placeholder="••••" autocomplete="new-password" inputmode="numeric" />
+      </label>
+      <button class="btn-secondary" id="btn-pin-remove" data-i18n="pinRemove">PIN entfernen</button>
+    </div>
+    <div class="sett-note muted" data-i18n="pinNote">Leer lassen = keine PIN. Stelle eine PIN, um EasyNotes zu sperren. Nach dem Reload/Neustart fragt die App nach der PIN.</div>
+    <h4 data-i18n="backup">Backup / Export</h4>
+    <div class="sett-grid">
+      <div class="sett-note muted" data-i18n="backupDesc">Alle Notizen und Dateien als ZIP herunterladen.</div>
+      <button class="btn-primary" id="btn-backup-now" data-i18n="backupNow">Backup als ZIP</button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" data-close id="btn-settings-cancel" data-i18n="cancel">Abbrechen</button>
+      <div class="flex-space"></div>
+      <button class="btn-primary" id="btn-settings-save" data-i18n="save">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- PIN lock screen -->
+<div id="lockscreen" class="hidden">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <h1 data-i18n="locked">EasyNotes ist gesperrt</h1>
+    <p data-i18n="enterPin">Bitte PIN eingeben</p>
+    <input type="password" id="lockscreen-pin" inputmode="numeric" autocomplete="current-password" placeholder="••••" />
+    <button class="btn-primary" id="lockscreen-unlock" data-i18n="unlock">Entsperren</button>
+    <div id="lock-error" class="muted hidden" style="color:var(--danger)" data-i18n="wrongPin">Falsche PIN</div>
+  </div>
+</div>
+
+<!-- Toast -->
+
+<!-- Template-Auswahl beim Anlegen einer neuen Seite -->
+<div id="newpage-modal" class="modal hidden">
+  <div class="modal-box">
+    <h3 data-i18n="newPageModalTitle">Neue Seite erstellen</h3>
+    <label>
+      <span class="lbl">Name</span>
+      <input type="text" id="newpage-name" placeholder="Name der neuen Seite" />
+    </label>
+    <label>
+      <span class="lbl" data-i18n="templateChoose">Vorlage auswählen</span>
+      <select id="newpage-template">
+        <option value="__blank" data-i18n="emptyPage">Leere Seite</option>
+      </select>
+    </label>
+    <div class="modal-actions">
+      <button class="btn-secondary" data-close id="btn-newpage-cancel" data-i18n="cancel">Abbrechen</button>
+      <span class="flex-space"></span>
+      <button class="btn-primary" id="btn-newpage-create" data-i18n="create">Erstellen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Zeichnungs-Editor -->
+<div id="drawing-modal" class="modal hidden">
+  <div class="modal-box modal-draw">
+    <h3 data-i18n="drawings">Zeichnen</h3>
+    <div class="draw-toolbar">
+      <button class="btn-secondary draw-pen active" id="draw-tool-pen" data-i18n="drawingPen">Stift</button>
+      <button class="btn-secondary draw-pen" id="draw-tool-eraser" data-i18n="drawingEraser">Radierer</button>
+      <input type="color" id="draw-color" value="#2563eb" title="Farbe" aria-label="Farbe" />
+      <input type="range" id="draw-brush" min="1" max="40" value="4" title="Strich" aria-label="Strich" />
+      <button class="btn-secondary" id="draw-undo" data-i18n="drawingUndo">Rückgängig</button>
+      <button class="btn-secondary" id="draw-clear" data-i18n="drawingClear">Löschen</button>
+      <span class="flex-space"></span>
+      <button class="btn-primary" id="draw-insert" data-i18n="drawingInsert">Zeichnung einfügen</button>
+    </div>
+    <div class="draw-canvas-wrap">
+      <canvas id="draw-canvas" width="800" height="480"></canvas>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-secondary" data-close data-i18n="cancel">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Versionen -->
+<div id="versions-modal" class="modal hidden">
+  <div class="modal-box">
+    <h3 data-i18n="versions">Versionen</h3>
+    <div id="versions-list" class="versions-list"><div class="muted" data-i18n="noVersions">Noch keine Versionen vorhanden.</div></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" data-close data-i18n="close">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Import Modal -->
+<div id="import-modal" class="modal hidden">
+  <div class="modal-box">
+    <h3 data-i18n="importTitle">Importieren</h3>
+    <p class="muted" data-i18n="importHint">Lege deinen Export (Ordner oder .zip) unter <code>data/imports/</code> ab oder lade eine .zip hoch. Assets werden automatisch mit importiert.</p>
+    <div class="import-upload">
+      <input type="file" id="import-file-input" accept=".zip" class="hidden" />
+      <button class="btn-primary" id="btn-import-upload" data-i18n="importUpload">📦 Zip hochladen</button>
+      <span id="import-upload-status" class="muted"></span>
+    </div>
+    <div id="import-list"><div class="muted">Lädt…</div></div>
+    <div id="import-target-wrap" class="hidden">
+      <label>
+        <span class="lbl" data-i18n="importTarget">Zielordner (optional)</span>
+        <input id="import-target" placeholder="z. B. MeineNotizen" />
+      </label>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" id="btn-import-refresh" data-i18n="reload">Neu laden</button>
+      <button class="btn-secondary" data-close data-i18n="close">Schließen</button>
+      <span class="flex-space"></span>
+      <button class="btn-primary" id="btn-import-confirm" data-i18n="import">Importieren</button>
+    </div>
+    <div id="import-result" class="hidden"></div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="hidden"></div>
+
+<script src="marked.min.js?v=10"></script>
+<script src="core.js?v=10"></script>
+<script src="tree.js?v=10"></script>
+<script src="editor.js?v=14"></script>
+<script src="ai.js?v=10"></script>
+<script src="pinboard.js?v=12"></script>
+<script src="tags.js?v=11"></script>
+<script src="drawing.js?v=15"></script>
+<script src="settings.js?v=12"></script>
+<script src="app.js?v=12"></script>
+<script>
+  // Progressive Web App: Service Worker registrieren (Offline + Installation)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js?v=10').catch(function (err) {
+        console.warn('PWA Service Worker Registrierung fehlgeschlagen:', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>

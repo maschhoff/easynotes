@@ -1,0 +1,21 @@
+[Unit]
+Description=Notizbuch (OneNote-MD v2) - Markdown notebook web app
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/knex/onenote-app
+ExecStart=/usr/bin/node server/server.js
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+Environment=PORT=3500
+Environment=NOTES_ROOT=/home/knex/onenote-app/data/notes
+Environment=DATA_DIR=/home/knex/onenote-app/data
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=full
+ReadWritePaths=/home/knex/onenote-app/data
+
+[Install]
+WantedBy=multi-user.target

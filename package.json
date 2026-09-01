@@ -1,0 +1,20 @@
+{
+  "name": "onenote-md",
+  "version": "2.0.0",
+  "description": "Modern OneNote-like web app storing notes as Markdown files in folders. WYSIWYG editor, AI (DeepSeek/Claude/ChatGPT), OneNote importer, i18n DE/EN, dark mode.",
+  "type": "module",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "marked": "^13.0.3",
+    "dompurify": "^3.1.6",
+    "jsdom": "^25.0.0",
+    "gray-matter": "^4.0.3",
+    "mime-types": "^2.1.35"
+  }
+}
