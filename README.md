@@ -2,6 +2,8 @@
 
 A modern web application that stores notes as **Markdown files** in **folders/subfolders** — every notebook is a folder, every page a `.md` file. No database: your notes are plain files on disk.
 
+![easynotes screenshot](https://raw.githubusercontent.com/maschhoff/easynotes/refs/heads/main/easynotes%202026-09-01%20113824.png)
+
 ## Features
 
 - **WYSIWYG editor** (w) with 1-click switching to the **Markdown editor**
