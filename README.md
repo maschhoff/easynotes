@@ -1,45 +1,61 @@
-# Notizbuch easynotes
+# easynotes Notebook
 
-Eine moderne Webanwendung, die Notizen als **Markdown-Dateien** in **Ordnern/Unterordnern** ablegt — jedes Notizbuch ist ein Ordner, jede Seite eine `.md`-Datei. Keine Datenbank: deine Notizen sind normale Dateien auf der Festplatte.
+A modern web application that stores notes as **Markdown files** in **folders/subfolders** — every notebook is a folder, every page a `.md` file. No database: your notes are plain files on disk.
 
 ## Features
-- **WYSIWYG-Editor** (w) mit 1-Klick-Umschaltung in den **Markdown-Editor**
-- **Responsive** Design für Desktop und Mobile
-- **Verschieben & Kopieren** von Notiz-Seiten und Ordnern (per Kontext-Menü im Baum)
-- **Bilder & Anlagen** einfügen und **hochladen** (per Toolbar, Drag & Drop oder Einfügen/Bild)
-- **Dublette** einer Seite mit einem Klick
-- **Sprache** Deutsch ⇄ Englisch (umschaltbar)
-- **Darkmode** (hell/dunkel/auto)
-- **Tags** pro Seite (optional abschaltbar)
-- **KI-Assistent** für die Notizerstellung mit **DeepSeek**, **Claude (Anthropic)** und **ChatGPT (OpenAI)** — API-Keys werden in der App hinterlegt
-- **OneNote-Import** vom Tool [alxnbl/onenote-md-exporter](https://github.com/alxnbl/onenote-md-exporter) — inklusive **Assets**-Ordner (Unterordner `.assets`/`assets` in jedem Ordner werden mit importiert und angezeigt)
 
-## Schnellstart (lokal)
+- **WYSIWYG editor** (w) with 1-click switching to the **Markdown editor**
+- **Responsive** design for desktop and mobile
+- **Move & copy** note pages and folders (via the context menu in the tree)
+- Insert and **upload** **images & attachments** (via toolbar, drag & drop, or paste/image)
+- **Duplicate** a page with a single click
+- **Language** German ⇄ English (switchable)
+- **Dark mode** (light/dark/auto)
+- **Tags** per page (can optionally be disabled)
+- **AI assistant** for note creation with **DeepSeek**, **Claude (Anthropic)** and **ChatGPT (OpenAI)** — API keys are stored in the app
+- **OneNote import** from the tool [alxnbl/onenote-md-exporter](https://github.com/alxnbl/onenote-md-exporter) — including the **assets** folder (the `.assets`/`assets` subfolder in each folder is imported and displayed as well)
+
+## Quick start (local)
+
 ```bash
 npm install
 npm start
 ```
-Danach läuft die App auf http://localhost:3500
 
-## Ordnerstruktur
-- `data/notes/` — deine Notizbücher/Notizen (Markdown + assets)
-- `data/imports/` — hierhin legst du OneNote-Exporte (Ordner oder `.zip`), die du importieren willst
-- `data/settings.json` — Sprache, Theme, Tags, KI-Keys
+The app then runs at http://localhost:3500
 
-## Einrichtung KI
-Im KI-Assistenten oben rechts: Anbieter wählen, API-Key eintragen (wird lokal gespeichert), Modell optional anpassen, dann Thema eingeben und „Erzeugen". Der Text kann direkt in die Seite eingefügt werden.
+## Folder structure
+
+- `data/notes/` — your notebooks/notes (Markdown + assets)
+- `data/imports/` — put the OneNote exports you want to import here (folder or `.zip`)
+- `data/settings.json` — language, theme, tags, AI keys
+
+## Setting up AI
+
+In the AI assistant at the top right: choose a provider, enter your API key (stored locally), optionally adjust the model, then enter a topic and click "Generate". The text can be inserted straight into the page.
 
 ## Docker (Unraid)
-Installation über Community Apps Unraid oder
+
+Install via Community Apps on Unraid, or
+
+```bash
 docker pull knex666/easynotes:latest
+```
 
+## Running permanently (Linux/systemd)
 
-## Dauerhafter Betrieb (Linux/systemd)
 ```bash
 sudo cp onenote-md.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now onenote-md.service
 ```
-Die App startet dann automatisch mit dem System und wird bei Abstürzen neu gestartet.
 
-Nach dem Import: Seite im Baum anklicken, um den Import zu sehen. Lege Export-.zip unter `data/imports/` ab und klicke „Importieren".
+The app then starts automatically with the system and is restarted if it crashes.
+
+After the import: click the page in the tree to see the imported content. Place the export `.zip` in `data/imports/` and click "Import".
+
+## OneNote import
+
+Use https://github.com/alxnbl/onenote-md-exporter together with the `appSettings.json` from this repository to export your OneNote notes.
+
+These can then be imported into easynotes.
