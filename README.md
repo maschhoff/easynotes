@@ -1,9 +1,9 @@
-# Notizbuch (OneNote-MD v2)
+# Notizbuch easynotes
 
-Eine moderne Webanwendung im OneNote-Stil, die Notizen als **Markdown-Dateien** in **Ordnern/Unterordnern** ablegt — jedes Notizbuch ist ein Ordner, jede Seite eine `.md`-Datei. Keine Datenbank: deine Notizen sind normale Dateien auf der Festplatte.
+Eine moderne Webanwendung, die Notizen als **Markdown-Dateien** in **Ordnern/Unterordnern** ablegt — jedes Notizbuch ist ein Ordner, jede Seite eine `.md`-Datei. Keine Datenbank: deine Notizen sind normale Dateien auf der Festplatte.
 
 ## Features
-- **WYSIWYG-Editor** (wie OneNote) mit 1-Klick-Umschaltung in den **Markdown-Editor**
+- **WYSIWYG-Editor** (w) mit 1-Klick-Umschaltung in den **Markdown-Editor**
 - **Responsive** Design für Desktop und Mobile
 - **Verschieben & Kopieren** von Notiz-Seiten und Ordnern (per Kontext-Menü im Baum)
 - **Bilder & Anlagen** einfügen und **hochladen** (per Toolbar, Drag & Drop oder Einfügen/Bild)
